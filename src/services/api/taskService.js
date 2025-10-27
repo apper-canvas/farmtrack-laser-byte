@@ -114,9 +114,9 @@ class TaskService {
       const params = {
         records: [
           {
-            title_c: taskData.title_c,
+title_c: taskData.title_c,
             description_c: taskData.description_c || "",
-            due_date_c: new Date(taskData.due_date_c).toISOString(),
+            ...(taskData.due_date_c && { due_date_c: new Date(taskData.due_date_c).toISOString() }),
             priority_c: taskData.priority_c,
             completed_c: false,
             completed_at_c: null,
@@ -158,9 +158,9 @@ class TaskService {
         Id: parseInt(id)
       };
 
-      if (taskData.title_c !== undefined) updateRecord.title_c = taskData.title_c;
+if (taskData.title_c !== undefined) updateRecord.title_c = taskData.title_c;
       if (taskData.description_c !== undefined) updateRecord.description_c = taskData.description_c;
-      if (taskData.due_date_c !== undefined) updateRecord.due_date_c = new Date(taskData.due_date_c).toISOString();
+      if (taskData.due_date_c !== undefined && taskData.due_date_c) updateRecord.due_date_c = new Date(taskData.due_date_c).toISOString();
       if (taskData.priority_c !== undefined) updateRecord.priority_c = taskData.priority_c;
       if (taskData.completed_c !== undefined) updateRecord.completed_c = taskData.completed_c;
       if (taskData.completed_at_c !== undefined) updateRecord.completed_at_c = taskData.completed_at_c;
