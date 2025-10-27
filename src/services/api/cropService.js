@@ -115,10 +115,10 @@ class CropService {
         records: [
           {
             crop_type_c: cropData.crop_type_c,
-            planting_date_c: new Date(cropData.planting_date_c).toISOString(),
+planting_date_c: cropData.plantingDate,
             field_location_c: cropData.field_location_c,
             status_c: cropData.status_c,
-            expected_harvest_c: new Date(cropData.expected_harvest_c).toISOString(),
+expected_harvest_c: cropData.expectedHarvest,
             notes_c: cropData.notes_c || "",
             farm_id_c: parseInt(cropData.farm_id_c)
           }
@@ -159,10 +159,10 @@ class CropService {
           {
             Id: parseInt(id),
             crop_type_c: cropData.crop_type_c,
-            planting_date_c: new Date(cropData.planting_date_c).toISOString(),
+planting_date_c: cropData.plantingDate,
             field_location_c: cropData.field_location_c,
             status_c: cropData.status_c,
-            expected_harvest_c: new Date(cropData.expected_harvest_c).toISOString(),
+expected_harvest_c: cropData.expectedHarvest,
             notes_c: cropData.notes_c || "",
             farm_id_c: parseInt(cropData.farm_id_c)
           }
