@@ -219,4 +219,3 @@ class ExpenseService {
 }
 
 export default new ExpenseService();
-export default new ExpenseService();
