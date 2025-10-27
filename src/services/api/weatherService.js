@@ -1,4 +1,41 @@
-import weatherData from "@/services/mockData/weather.json";
+// Mock weather data - No database table available
+const mockWeatherData = [
+  {
+    date: "2024-12-15T00:00:00.000Z",
+    temperature: { high: 72, low: 58 },
+    condition: "sunny",
+    precipitation: 0,
+    humidity: 45
+  },
+  {
+    date: "2024-12-16T00:00:00.000Z",
+    temperature: { high: 75, low: 60 },
+    condition: "partly_cloudy",
+    precipitation: 10,
+    humidity: 55
+  },
+  {
+    date: "2024-12-17T00:00:00.000Z",
+    temperature: { high: 68, low: 54 },
+    condition: "cloudy",
+    precipitation: 30,
+    humidity: 65
+  },
+  {
+    date: "2024-12-18T00:00:00.000Z",
+    temperature: { high: 65, low: 52 },
+    condition: "rainy",
+    precipitation: 75,
+    humidity: 80
+  },
+  {
+    date: "2024-12-19T00:00:00.000Z",
+    temperature: { high: 70, low: 56 },
+    condition: "partly_cloudy",
+    precipitation: 20,
+    humidity: 60
+  }
+];
 
 class WeatherService {
   constructor() {
@@ -15,8 +52,8 @@ class WeatherService {
       return [...this.cache];
     }
 
-    // Simulate weather API call
-    const forecast = weatherData.map(day => ({ ...day }));
+    // Simulate weather API call with mock data
+    const forecast = mockWeatherData.map(day => ({ ...day }));
     
     // Cache the result
     this.cache = forecast;

@@ -1,67 +1,75 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/layouts/Root";
 import ApperIcon from "@/components/ApperIcon";
 import NavItem from "@/components/molecules/NavItem";
 import { cn } from "@/utils/cn";
-
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { logout } = useAuth();
 
   const navigation = [
-    { name: "Dashboard", to: "", icon: "LayoutDashboard" },
-    { name: "Farms", to: "farms", icon: "MapPin" },
-    { name: "Crops", to: "crops", icon: "Sprout" },
-    { name: "Tasks", to: "tasks", icon: "CheckSquare" },
-    { name: "Weather", to: "weather", icon: "Cloud" },
-    { name: "Expenses", to: "expenses", icon: "DollarSign" }
+    { name: "Dashboard", to: "/", icon: "LayoutDashboard" },
+    { name: "Farms", to: "/farms", icon: "MapPin" },
+    { name: "Crops", to: "/crops", icon: "Sprout" },
+    { name: "Tasks", to: "/tasks", icon: "CheckSquare" },
+    { name: "Weather", to: "/weather", icon: "Cloud" },
+    { name: "Expenses", to: "/expenses", icon: "DollarSign" },
   ];
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <>
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-                  <ApperIcon name="Sprout" className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-                  FarmTrack
-                </span>
-              </Link>
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+              <ApperIcon name="Sprout" className="w-5 h-5 text-white" />
             </div>
+            <span className="text-xl font-bold text-gray-900">FarmTrack</span>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-1">
-              {navigation.map((item) => (
-                <NavItem
-                  key={item.name}
-                  to={item.to}
-                  icon={item.icon}
-                  label={item.name}
-                  className="px-4 py-2"
-                />
-              ))}
-            </nav>
+{/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
+            {navigation.map((item) => (
+              <NavItem
+                key={item.name}
+                to={item.to}
+                icon={item.icon}
+                label={item.name}
+                className="px-4 py-2"
+              />
+            ))}
+          </nav>
+          
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <ApperIcon name="LogOut" className="w-5 h-5" />
+            <span className="text-sm font-medium">Logout</span>
+          </button>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-              >
-                <ApperIcon 
-                  name={isMobileMenuOpen ? "X" : "Menu"} 
-                  className="w-6 h-6" 
-                />
-              </button>
-            </div>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+            >
+              <ApperIcon 
+                name={isMobileMenuOpen ? "X" : "Menu"} 
+                className="w-6 h-6" 
+              />
+            </button>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
       {/* Mobile Navigation Overlay */}
       {isMobileMenuOpen && (
@@ -87,7 +95,7 @@ const Header = () => {
               </div>
 
               <nav className="space-y-2">
-                {navigation.map((item) => (
+{navigation.map((item) => (
                   <NavItem
                     key={item.name}
                     to={item.to}
@@ -97,6 +105,16 @@ const Header = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                   />
                 ))}
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="flex items-center space-x-3 w-full px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <ApperIcon name="LogOut" className="w-5 h-5" />
+                  <span className="font-medium">Logout</span>
+                </button>
               </nav>
             </div>
           </div>
